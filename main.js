@@ -18,10 +18,10 @@ function timer() {
     let setSeconds = (sec.innerHTML = getSeconds);
 
     // minutes: it will show minutes with division seconds to 60 => ( 180sec / 60 = 3min )
-    let getMinutes = (bmin) / 60;
+    let getMinutes = bmin / 60;
 
     // hours: it will show hours with division seconds to 60 => ( 180min / 60 = 3hours )
-    let getHour = (bhour) / 60;
+    let getHour = bhour / 60;
 
     // seconds
     if (bsec > 60) {
@@ -63,23 +63,31 @@ function timer() {
     bhour++;
   }, 20);
   // 1000 = 1sec
+  return interval
 }
 
 // start
 function startCount() {
   start.addEventListener("click", () => {
-    timer();
+    if (start.textContent == "start") {
+      start.textContent = "pause";
+      timer();
+    } else if (start.textContent == "pause") {
+      start.textContent = "start";
+      clearInterval(interval);
+    }
   });
 }
 startCount();
 
 // pause
-function pauseCounter() {
-  pause.addEventListener("click", () => {
+pause.addEventListener("click", () => {
+  if (bsec !== 0 && bmin !== 0 && bhour !== 0) {
     clearInterval(interval);
-  });
-}
-pauseCounter();
+  }
+  clearInterval(interval);
+  clearInterval(interval);
+});
 
 // reset
 function resetCounter() {
@@ -92,3 +100,4 @@ function resetCounter() {
   return c;
 }
 resetCounter();
+
