@@ -1,73 +1,68 @@
+// javascript
+
+// import of html elements
 let btnContent = document.querySelector(".btn-main");
 let start = document.querySelector(".btn");
 let reset = document.querySelector("#reset");
 let pause = document.querySelector("#pause");
-let sec = document.getElementById("sek");
+let sec = document.getElementById("sec");
 let min = document.getElementById("min");
 let hour = document.getElementById("hour");
 let interval = null;
-// beginning seconds || hour || minutes
+
+// beginning seconds || mins || hours
 let [bsec, bmin, bhour] = [1, 0, 0];
 
 // timer func
 function timer() {
-  // Interval
+  // interval
   interval = setInterval(() => {
-    // seconds: remainder of division 60
+    // seconds remainer of divition 60
     let getSeconds = bsec % 60;
     let setSeconds = (sec.innerHTML = getSeconds);
 
-    // minutes: it will show minutes with division seconds to 60 => ( 180sec / 60 = 3min )
+    // minutes
     let getMinutes = bmin / 60;
 
-    // hours: it will show hours with division seconds to 60 => ( 180min / 60 = 3hours )
+    // hours
     let getHour = bhour / 60;
 
-    // seconds
+    // seconds func
     if (bsec > 60) {
-      // if number less than 10 (1, 5, ...) it will show with 0, that located before that (01, 05, ..)
       setSeconds < 10
         ? (sec.innerHTML = "0" + setSeconds)
-        : (sec.innerHTML = setSeconds % 60);
+        : (sec.innerHTML = setSeconds);
 
-      // minutes
+      // min func
       if (getSeconds == true) {
-        // each minute this will work
-        console.log("minute left");
-
-        // minutes: remainder of division 60
+        // min remainer of divition
         let setMinutes = getMinutes % 60;
 
-        // if number less than 10 (1, 5, ...) it will show with 0, that located before that (01, 05, ..)
         setMinutes < 10
-          ? (min.innerHTML = "0" + (getMinutes % 60))
-          : (min.innerHTML = getMinutes % 60);
+          ? (min.innerHTML = "0" + setMinutes)
+          : (min.innerHTML = setMinutes);
 
-        //hours
+        // hour func
         if (getMinutes % 60 == true && getMinutes > 60) {
-          // each hour this will work
-          console.log(hour);
+          // min remainer of divition
+          let setHours = getHour % 60;
 
-          // hours: remainder of division 60
-          let setHour = getHour % 60;
-          setHour < 10
-            ? (hour.innerHTML = "0" + (getHour % 60))
-            : (hour.innerHTML = getHour % 60);
+          setHours < 10
+            ? (hour.innerHTML = "0" + setHours)
+            : (hour.innerHTML = setHours);
         }
       }
     }
-
-    // bsec + 1 & bmin + 1 & bhour + 1
-    bsec++;
-    bmin++;
     bhour++;
+    bmin++;
+    bsec++;
   }, 20);
-  // 1000 = 1sec
-  return interval
+
+  return interval;
 }
 
-// start
-function startCount() {
+// start || pause click
+function startCounter() {
   start.addEventListener("click", () => {
     if (start.textContent == "start") {
       start.textContent = "pause";
@@ -78,26 +73,24 @@ function startCount() {
     }
   });
 }
-startCount();
+startCounter();
 
 // pause
-pause.addEventListener("click", () => {
-  if (bsec !== 0 && bmin !== 0 && bhour !== 0) {
-    clearInterval(interval);
-  }
-  clearInterval(interval);
-  clearInterval(interval);
-});
 
-// reset
-function resetCounter() {
-  let c = 0;
-  reset.addEventListener("click", () => {
-    if (bsec !== 0 && bmin !== 0 && bhour !== 0) {
-      location.reload();
+pause.addEventListener('click', ()=> {
+    if(bsec !== 0, bmin !== 0, bhour !==0, start.textContent == "pause"){
+        clearInterval(interval)
+        start.textContent = "start"
+    }else{
+        start.textContent = "pause"
+
     }
-  });
-  return c;
-}
-resetCounter();
+})
+
+// reset 
+reset.addEventListener('click',()=>{
+    if(bsec !== 0, bmin !== 0, bhour !==0){
+        location.reload()
+    }
+})
 
